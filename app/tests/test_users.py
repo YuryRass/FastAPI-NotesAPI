@@ -2,11 +2,8 @@ import pytest
 from httpx import AsyncClient, Response
 
 from app.config import get_settings
+from app.users.router import login_user, user_register
 from app.utils.url import reverse
-from app.users.router import (
-    user_register,
-    login_user
-)
 
 settings = get_settings()
 

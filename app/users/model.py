@@ -1,4 +1,5 @@
 """Модель пользователей"""
+
 from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship

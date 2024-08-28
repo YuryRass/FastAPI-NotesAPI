@@ -1,6 +1,7 @@
 from typing import Any
-from pydantic import BaseModel, field_validator
+
 import httpx
+from pydantic import BaseModel, field_validator
 
 from app.config import get_settings
 

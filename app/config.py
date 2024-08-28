@@ -43,8 +43,8 @@ class Settings(BaseSettings):
     def TEST_DATABASE_URL(self) -> str:
         """URL адрес тестовой базы данных."""
         return (
-            f'postgresql+asyncpg://{self.TEST_DB_USER}:{self.TEST_DB_PASS}@'
-            f'{self.TEST_DB_HOST}:{self.TEST_DB_PORT}/{self.TEST_DB_NAME}'
+            f"postgresql+asyncpg://{self.TEST_DB_USER}:{self.TEST_DB_PASS}@"
+            f"{self.TEST_DB_HOST}:{self.TEST_DB_PORT}/{self.TEST_DB_NAME}"
         )
 
     model_config = SettingsConfigDict(env_file=".env")

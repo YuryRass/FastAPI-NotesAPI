@@ -1,4 +1,5 @@
 """Модуль отвечает за хеширование и сверку пользоватльских паролей"""
+
 from datetime import datetime, timedelta
 
 from jose import jwt

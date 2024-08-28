@@ -1,5 +1,4 @@
 import json
-from typing import Any
 
 import pytest
 from httpx import AsyncClient
@@ -44,7 +43,7 @@ async def prepare_database() -> None:
 
 
 @pytest.fixture(scope="function")
-async def ac() -> AsyncClient: # type: ignore
+async def ac() -> AsyncClient:  # type: ignore
     """Асинхронный HTTP клиент."""
     async with AsyncClient(
         app=fastapi_app,
@@ -54,7 +53,7 @@ async def ac() -> AsyncClient: # type: ignore
 
 
 @pytest.fixture(scope="function")
-async def authenticated_ac() -> AsyncClient: # type: ignore
+async def authenticated_ac() -> AsyncClient:  # type: ignore
     """Асинхронный клиент, который прошел аутентификацию."""
     async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
         await ac.post(

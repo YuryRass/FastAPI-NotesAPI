@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 
 from app.config import get_settings
-from app.exceptions import IncorrectEmailOrPasswordException, UserIsAllredyRegistered
-from app.users.auth import authentication_user, create_jwt_token, get_password_hash
-from app.users.dao import UsersDAO
 from app.users.dependencies import get_current_user
 from app.users.model import Users
 from app.users.service import UserService

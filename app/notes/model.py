@@ -1,4 +1,5 @@
 """Реализация модели 'Заметки"""
+
 from typing import TYPE_CHECKING
 
 from sqlalchemy import ForeignKey

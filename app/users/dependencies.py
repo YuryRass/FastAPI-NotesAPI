@@ -18,8 +18,8 @@ from app.exceptions import (
 from app.users.dao import UsersDAO
 from app.users.model import Users
 
-
 settings = get_settings()
+
 
 def get_token(request: Request) -> str | None:
     """Возвращает токен пользователя по его HTTP запросу."""
