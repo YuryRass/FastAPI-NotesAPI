@@ -2,6 +2,11 @@ import pytest
 from httpx import AsyncClient, Response
 
 from app.config import get_settings
+from app.utils.url import reverse
+from app.users.router import (
+    user_register,
+    login_user
+)
 
 settings = get_settings()
 
@@ -18,7 +23,7 @@ async def test_user_register(
     ac: AsyncClient, email: str, password: str, status_code: int
 ):
     resp: Response = await ac.post(
-        url="/auth/register",
+        url=reverse(user_register),
         json={"email": email, "password": password},
     )
 
@@ -41,7 +46,7 @@ async def test_login_user(
     exist_token: bool,
 ):
     resp: Response = await ac.post(
-        url="/auth/login",
+        url=reverse(login_user),
         json={"email": email, "password": password},
     )
 
