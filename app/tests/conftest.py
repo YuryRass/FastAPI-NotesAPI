@@ -15,20 +15,9 @@ from app.users.model import Users
 settings = get_settings()
 
 
-# @pytest.fixture(scope="session")
-# def event_loop(request):
-#     """
-#     Создает экземпляр стандартного цикла событий
-#     для каждого тестового случая.
-#     """
-#     loop = asyncio.get_event_loop_policy().new_event_loop()
-#     yield loop
-#     loop.close()
-
-
 @pytest.fixture(scope="session", autouse=True)
-async def prepare_database():
-    """Создание тестовой базы данных"""
+async def prepare_database() -> None:
+    """Создание тестовой базы данных."""
     assert settings.MODE == "TEST"
 
     async with async_engine.begin() as conn:
@@ -55,8 +44,8 @@ async def prepare_database():
 
 
 @pytest.fixture(scope="function")
-async def ac():
-    """Асинхронный HTTP клиент"""
+async def ac() -> AsyncClient: # type: ignore
+    """Асинхронный HTTP клиент."""
     async with AsyncClient(
         app=fastapi_app,
         base_url="http://test",
@@ -65,7 +54,8 @@ async def ac():
 
 
 @pytest.fixture(scope="function")
-async def authenticated_ac():
+async def authenticated_ac() -> AsyncClient: # type: ignore
+    """Асинхронный клиент, который прошел аутентификацию."""
     async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
         await ac.post(
             "/auth/login",
@@ -76,3 +66,15 @@ async def authenticated_ac():
         )
         assert ac.cookies[settings.COOKIE_KEY]
         yield ac
+
+
+@pytest.fixture(scope="function")
+async def true_content() -> str:
+    """Вывод верного контента с точки зрения орфографии."""
+    return "Привет, мир!"
+
+
+@pytest.fixture(scope="function")
+async def invalid_content() -> str:
+    """Вывод неверного контента с точки зрения орфографии."""
+    return "Здесь ашибки в славах"

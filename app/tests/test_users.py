@@ -21,7 +21,7 @@ settings = get_settings()
 )
 async def test_user_register(
     ac: AsyncClient, email: str, password: str, status_code: int
-):
+) -> None:
     resp: Response = await ac.post(
         url=reverse(user_register),
         json={"email": email, "password": password},
@@ -44,7 +44,7 @@ async def test_login_user(
     password: str,
     status_code: int,
     exist_token: bool,
-):
+) -> None:
     resp: Response = await ac.post(
         url=reverse(login_user),
         json={"email": email, "password": password},
