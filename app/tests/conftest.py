@@ -1,4 +1,5 @@
 import json
+from unittest.mock import Mock, patch
 
 import pytest
 from httpx import AsyncClient
@@ -9,6 +10,7 @@ from app.config import get_settings
 from app.database import Base, async_engine, async_session
 from app.main import app as fastapi_app
 from app.notes.model import Notes
+from app.notes.shemas import SpellerService
 from app.users.model import Users
 
 settings = get_settings()
@@ -68,12 +70,20 @@ async def authenticated_ac() -> AsyncClient:  # type: ignore
 
 
 @pytest.fixture(scope="function")
-async def true_content() -> str:
+async def mock_true_content():
     """Вывод верного контента с точки зрения орфографии."""
-    return "Привет, мир!"
+    with patch.object(
+        SpellerService, "check_spelling", new_callable=Mock
+    ) as mock_method:
+        mock_method.return_value = None
+        yield
 
 
 @pytest.fixture(scope="function")
-async def invalid_content() -> str:
+async def mock_invalid_content():
     """Вывод неверного контента с точки зрения орфографии."""
-    return "Здесь ашибки в славах"
+    with patch.object(
+        SpellerService, "check_spelling", new_callable=Mock
+    ) as mock_method:
+        mock_method.return_value = [{"s": ["mistake"], "word": "error"}]
+        yield
